@@ -11,9 +11,7 @@ const env = {
     atlasUri: getEnvString('MONGO_ATLAS_URI'),
     databaseName: getEnvString('MONGO_DATABASE_NAME'),
   },
-  server: {
-    port: getEnvNumber('SERVER_PORT'),
-  },
+  port: getEnvNumber('PORT', 8076),
   cors: {
     whitelist: getEnvArray('CORS_WHITELIST'),
   },

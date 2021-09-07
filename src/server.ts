@@ -37,7 +37,7 @@ const bootServer = () => {
   app.use('/api', apiRoutes);
 
   // Server listenning
-  const port = env.server.port;
+  const port = env.port;
   app.listen(port, () =>
     console.log(`Server is running on http://localhost:${port}`)
   );

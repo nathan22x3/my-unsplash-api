@@ -9,7 +9,6 @@
     "run:dev": "nodemon build/bundle.js",
     "dev": "webpack --config ./webpack.config.dev.js",
     "build": "webpack --config ./webpack.config.prod.js",
-    "prestart": "yarn build",
     "start": "node build/bundle.js"
   },
   "dependencies": {
