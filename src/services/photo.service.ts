@@ -17,4 +17,12 @@ const addNew = async (data: Photo) => {
   }
 };
 
-export default { getAll, addNew };
+const deleteById = async (id: string) => {
+  try {
+    return await PhotoModel.deleteById(id);
+  } catch (error) {
+    throw new Error(error).message;
+  }
+};
+
+export default { getAll, addNew, deleteById };

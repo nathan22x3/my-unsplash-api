@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ObjectId } from 'bson';
 import { getDatabase } from 'configs/mongo.config';
 import Joi from 'joi';
 import { urlRegex } from 'utils/regex.util';
@@ -56,4 +57,18 @@ const addNew = async (data: Photo) => {
   }
 };
 
-export default { schema, getAll, addNew };
+const deleteById = async (id: string) => {
+  try {
+    const deletedDoc = await getDatabase()
+      .collection<Photo>('photos')
+      .findOneAndDelete({
+        _id: new ObjectId(id),
+      });
+
+    return deletedDoc.value;
+  } catch (error) {
+    throw new Error(error).message;
+  }
+};
+
+export default { schema, getAll, addNew, deleteById };

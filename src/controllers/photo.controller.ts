@@ -20,4 +20,14 @@ const addNew = async (req: Request, res: Response) => {
   }
 };
 
-export default { getAll, addNew };
+const deleteById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const deletedPhoto = await PhotoService.deleteById(id);
+    res.status(HttpStatusCode.OK).json(deletedPhoto);
+  } catch (error) {
+    res.status(HttpStatusCode.BAD_REQUEST).json({ errors: error });
+  }
+};
+
+export default { getAll, addNew, deleteById };

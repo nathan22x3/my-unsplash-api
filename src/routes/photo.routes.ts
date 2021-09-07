@@ -6,5 +6,8 @@ const router = Router();
 
 router.route('/all').get(PhotoController.getAll);
 router.route('/add').post(PhotoValidation.addNew, PhotoController.addNew);
+router
+  .route('/delete/:id')
+  .delete(PhotoValidation.deleteById, PhotoController.deleteById);
 
 export default router;
