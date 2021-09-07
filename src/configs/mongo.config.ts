@@ -1,19 +1,16 @@
-import { Db, MongoClient } from 'mongodb';
 import env from 'configs/environment.config';
+import { MongoClient } from 'mongodb';
 
 const client = new MongoClient(env.mongo.atlasUri);
-let database: Db;
 
 export const connectMongo = async () => {
-  try {
-    await client.connect();
-    database = client.db(env.mongo.databaseName);
-  } finally {
-    await client.close();
-  }
+  await client.connect();
 };
 
 export const getDatabase = () => {
-  if (!database) throw new Error('Must connect to Mongo first!');
-  return database;
+  try {
+    return client.db(env.mongo.databaseName);
+  } catch (error) {
+    throw new Error('Must connect to Mongo first!');
+  }
 };

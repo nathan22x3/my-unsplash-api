@@ -24,6 +24,8 @@ module.exports = {
       configs: srcPath('configs'),
       controllers: srcPath('controllers'),
       models: srcPath('models'),
+      routes: srcPath('routes'),
+      services: srcPath('services'),
       utils: srcPath('utils'),
       validations: srcPath('validations'),
     },
