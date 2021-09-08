@@ -1,5 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 
 const srcPath = (subdir) => {
   return path.join(__dirname, 'src', subdir);
@@ -7,7 +8,7 @@ const srcPath = (subdir) => {
 
 module.exports = {
   entry: './src/server.ts',
-  mode: 'production',
+  mode: 'development',
   target: 'node',
   module: {
     rules: [
@@ -21,7 +22,9 @@ module.exports = {
     extensions: ['.ts'],
     alias: {
       configs: srcPath('configs'),
+      constants: srcPath('constants'),
       controllers: srcPath('controllers'),
+      middlewares: srcPath('middlewares'),
       models: srcPath('models'),
       routes: srcPath('routes'),
       services: srcPath('services'),
@@ -29,9 +32,23 @@ module.exports = {
       validations: srcPath('validations'),
     },
   },
+  watch: true,
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
   },
   externals: [nodeExternals()],
+  plugins: [
+    new WebpackShellPluginNext({
+      onBuildStart: {
+        blocking: true,
+        parallel: false,
+      },
+      onBuildEnd: {
+        scripts: ['yarn run:dev'],
+        blocking: false,
+        parallel: true,
+      },
+    }),
+  ],
 };

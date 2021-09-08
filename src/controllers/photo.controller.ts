@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import PhotoService from 'services/photo.service';
-import HttpStatusCode from 'utils/http-status-code.util';
+import { HttpStatusCode } from 'utils/http.util';
 
 const getAll = async (_: Request, res: Response) => {
   try {

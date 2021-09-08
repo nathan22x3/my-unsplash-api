@@ -1,9 +1,10 @@
 import env from 'configs/environment.config';
 import { connectMongo } from 'configs/mongo.config';
-import express from 'express';
-import apiRoutes from 'routes/api.routes';
 import cors from 'cors';
-import HttpStatusCode from 'utils/http-status-code.util';
+import express from 'express';
+import colorizeMorgan from 'middlewares/morgan.middleware';
+import apiRoutes from 'routes/api.routes';
+import { HttpStatusCode } from 'utils/http.util';
 
 connectMongo()
   .then(() => console.log('Connected to MongoDB successfully!'))
@@ -30,6 +31,7 @@ const bootServer = () => {
   };
   app.use(cors(corsOptions));
 
+  app.use(colorizeMorgan);
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 

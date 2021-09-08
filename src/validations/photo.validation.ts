@@ -1,7 +1,7 @@
 import { ObjectId } from 'bson';
 import { NextFunction, Request, Response } from 'express';
 import PhotoModel from 'models/photo.model';
-import HttpStatusCode from 'utils/http-status-code.util';
+import { HttpStatusCode } from 'utils/http.util';
 
 const addNew = async (req: Request, res: Response, next: NextFunction) => {
   try {
