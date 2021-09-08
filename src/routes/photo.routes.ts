@@ -4,6 +4,7 @@ import PhotoValidation from 'validations/photo.validation';
 
 const router = Router();
 
+router.route('/').get(PhotoController.getWithLimit);
 router.route('/all').get(PhotoController.getAll);
 router.route('/add').post(PhotoValidation.addNew, PhotoController.addNew);
 router

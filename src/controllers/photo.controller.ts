@@ -2,6 +2,24 @@ import { Request, Response } from 'express';
 import PhotoService from 'services/photo.service';
 import { HttpStatusCode } from 'utils/http.util';
 
+const getWithLimit = async (req: Request, res: Response) => {
+  try {
+    const { limit, next_cursor } = req.query;
+    const data = await PhotoService.getWithLimit(
+      Number(limit),
+      next_cursor as string
+    );
+
+    res.status(HttpStatusCode.OK).json({
+      data,
+      limit: limit || 10,
+      next_cursor: data.length ? data[data.length - 1]._id : '',
+    });
+  } catch (error) {
+    res.status(HttpStatusCode.NOT_FOUND).json({ errors: error });
+  }
+};
+
 const getAll = async (_: Request, res: Response) => {
   try {
     const allPhotos = await PhotoService.getAll();
@@ -30,4 +48,4 @@ const deleteById = async (req: Request, res: Response) => {
   }
 };
 
-export default { getAll, addNew, deleteById };
+export default { getWithLimit, getAll, addNew, deleteById };

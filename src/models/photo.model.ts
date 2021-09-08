@@ -5,6 +5,7 @@ import Joi from 'joi';
 import { urlRegex } from 'utils/regex.util';
 
 export interface Photo {
+  _id: ObjectId;
   label: string;
   url: string;
   createdAt?: number;
@@ -23,6 +24,23 @@ const schema = Joi.object<Photo>({
     .required(),
   createdAt: Joi.number().default(Date.now()),
 });
+
+const getWithLimit = async (
+  limit: number = 10,
+  next_cursor: string = '000000000000' // ObjectId format
+) => {
+  try {
+    const docs = await getDatabase()
+      .collection<Photo>('photos')
+      .find({ _id: { $gt: new ObjectId(next_cursor) } })
+      .limit(limit)
+      .toArray();
+
+    return docs || [];
+  } catch (error) {
+    throw new Error(error).message;
+  }
+};
 
 const getAll = async () => {
   try {
@@ -61,9 +79,7 @@ const deleteById = async (id: string) => {
   try {
     const deletedDoc = await getDatabase()
       .collection<Photo>('photos')
-      .findOneAndDelete({
-        _id: new ObjectId(id),
-      });
+      .findOneAndDelete({ _id: new ObjectId(id) });
 
     return deletedDoc.value;
   } catch (error) {
@@ -71,4 +87,4 @@ const deleteById = async (id: string) => {
   }
 };
 
-export default { schema, getAll, addNew, deleteById };
+export default { schema, getWithLimit, getAll, addNew, deleteById };

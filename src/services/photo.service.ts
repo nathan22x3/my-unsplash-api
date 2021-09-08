@@ -1,5 +1,13 @@
 import PhotoModel, { Photo } from 'models/photo.model';
 
+const getWithLimit = async (limit: number, next_cursor: string) => {
+  try {
+    return await PhotoModel.getWithLimit(limit, next_cursor);
+  } catch (error) {
+    throw new Error(error).message;
+  }
+};
+
 const getAll = async () => {
   try {
     return await PhotoModel.getAll();
@@ -25,4 +33,4 @@ const deleteById = async (id: string) => {
   }
 };
 
-export default { getAll, addNew, deleteById };
+export default { getWithLimit, getAll, addNew, deleteById };
