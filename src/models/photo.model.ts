@@ -1,11 +1,11 @@
+import { getDatabase } from '@app/configs/mongo.config';
+import { urlRegex } from '@app/utils/regex.util';
 import axios from 'axios';
 import { ObjectId } from 'bson';
-import { getDatabase } from 'configs/mongo.config';
 import Joi from 'joi';
-import { urlRegex } from 'utils/regex.util';
 
 export interface Photo {
-  _id: ObjectId;
+  _id?: ObjectId;
   label: string;
   url: string;
   createdAt?: number;
@@ -42,18 +42,6 @@ const getWithLimit = async (
   }
 };
 
-const getAll = async () => {
-  try {
-    const allDocs = await getDatabase()
-      .collection<Photo>('photos')
-      .aggregate([{ $sort: { createdAt: -1 } }])
-      .toArray();
-    return allDocs;
-  } catch (error) {
-    throw new Error(error).message;
-  }
-};
-
 const addNew = async (data: Photo) => {
   try {
     const photoURL = await axios.get(data.url);
@@ -81,10 +69,12 @@ const deleteById = async (id: string) => {
       .collection<Photo>('photos')
       .findOneAndDelete({ _id: new ObjectId(id) });
 
+    if (!deletedDoc.value) throw new Error();
+
     return deletedDoc.value;
   } catch (error) {
     throw new Error(error).message;
   }
 };
 
-export default { schema, getWithLimit, getAll, addNew, deleteById };
+export default { schema, getWithLimit, addNew, deleteById };

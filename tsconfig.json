@@ -7,7 +7,10 @@
     "moduleResolution": "node",
     "rootDir": ".",
     "outDir": "build",
-    "baseUrl": "./src"
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["src/*"]
+    }
   },
   "exclude": ["node_modules"]
 }

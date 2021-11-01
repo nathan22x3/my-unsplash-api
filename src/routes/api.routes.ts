@@ -1,4 +1,4 @@
-import PhotoRoutes from 'routes/photo.routes';
+import PhotoRoutes from '@app/routes/photo.routes';
 import { Router } from 'express';
 
 const router = Router();

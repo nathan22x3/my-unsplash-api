@@ -1,7 +1,7 @@
+import { Color, getMethodColor, getStatusColor } from '@app/utils/color.util';
+import { HttpMethod } from '@app/utils/http.util';
 import chalk from 'chalk';
 import morgan from 'morgan';
-import { Color, getMethodColor, getStatusColor } from 'utils/color.util';
-import { HttpMethod } from 'utils/http.util';
 
 morgan.token('method', (req) => {
   const method = req.method as HttpMethod;

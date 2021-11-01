@@ -1,9 +1,9 @@
-import dotenv from 'dotenv';
 import {
   getEnvArray,
   getEnvNumber,
   getEnvString,
-} from 'utils/environment.util';
+} from '@app/utils/environment.util';
+import dotenv from 'dotenv';
 dotenv.config();
 
 const env = {

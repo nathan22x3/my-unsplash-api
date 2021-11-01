@@ -1,4 +1,4 @@
-import { HttpMethod } from 'utils/http.util';
+import { HttpMethod } from '@app/utils/http.util';
 
 /**
  * Dracula Color Palette

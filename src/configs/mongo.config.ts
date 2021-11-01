@@ -1,4 +1,4 @@
-import env from 'configs/environment.config';
+import env from '@app/configs/environment.config';
 import { MongoClient } from 'mongodb';
 
 const client = new MongoClient(env.mongo.atlasUri);
